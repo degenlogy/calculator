@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spatial Tactile Calculator</title>
+  
+  <!-- High-Precision Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <!-- 3D Smooth Moving Stage -->
+  <div class="calculator-stage" id="calculatorStage">
+    <div class="calculator-chassis" id="calculatorChassis">
+      <div class="specular-glare"></div>
+
+      <!-- Header -->
+      <div class="chassis-header">
+        <div class="brand-tag">
+          <span></span> Degenlogy
+        </div>
+        <div class="top-actions">
+          <button class="btn-utility active" id="soundToggle" title="Toggle Mechanical Audio">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          </button>
+          <button class="btn-utility" id="historyToggle" title="Calculation Archive">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          </button>
+          <button class="btn-utility" id="sciToggle" title="Scientific Functions">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M4 4h16M8 4l8 16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- OLED Display with Live Expression Tracking -->
+      <div class="display-container" id="displayClick" title="Click to copy result">
+        <div class="history-tape" id="expressionView"></div>
+        <div class="main-readout">
+          <span class="op-badge" id="activeOpBadge"></span>
+          <div class="current-val" id="mainDisplay">0</div>
+        </div>
+      </div>
+
+      <!-- Keypad -->
+      <div class="keypad-wrapper">
+        
+        <!-- Scientific Grid -->
+        <div class="scientific-grid" id="scientificGrid">
+          <button class="key-3d key-fn" data-action="sin"><div class="key-top">sin</div></button>
+          <button class="key-3d key-fn" data-action="cos"><div class="key-top">cos</div></button>
+          <button class="key-3d key-fn" data-action="tan"><div class="key-top">tan</div></button>
+          <button class="key-3d key-fn" data-action="log"><div class="key-top">log</div></button>
+          <button class="key-3d key-fn" data-action="ln"><div class="key-top">ln</div></button>
+          <button class="key-3d key-fn" data-action="sqrt"><div class="key-top">√x</div></button>
+          <button class="key-3d key-fn" data-action="pow"><div class="key-top">xʸ</div></button>
+          <button class="key-3d key-fn" data-action="pi"><div class="key-top">π</div></button>
+          <button class="key-3d key-fn" data-action="e"><div class="key-top">e</div></button>
+          <button class="key-3d key-fn" data-action="fact"><div class="key-top">x!</div></button>
+        </div>
+
+        <!-- Main Keys -->
+        <div class="keypad-grid">
+          <button class="key-3d key-fn" data-action="clear"><div class="key-top">AC</div></button>
+          <button class="key-3d key-fn" data-action="delete"><div class="key-top">DEL</div></button>
+          <button class="key-3d key-fn" data-action="percent"><div class="key-top">%</div></button>
+          <button class="key-3d key-op" data-action="divide"><div class="key-top">÷</div></button>
+
+          <button class="key-3d key-num" data-val="7"><div class="key-top">7</div></button>
+          <button class="key-3d key-num" data-val="8"><div class="key-top">8</div></button>
+          <button class="key-3d key-num" data-val="9"><div class="key-top">9</div></button>
+          <button class="key-3d key-op" data-action="multiply"><div class="key-top">×</div></button>
+
+          <button class="key-3d key-num" data-val="4"><div class="key-top">4</div></button>
+          <button class="key-3d key-num" data-val="5"><div class="key-top">5</div></button>
+          <button class="key-3d key-num" data-val="6"><div class="key-top">6</div></button>
+          <button class="key-3d key-op" data-action="subtract"><div class="key-top">−</div></button>
+
+          <button class="key-3d key-num" data-val="1"><div class="key-top">1</div></button>
+          <button class="key-3d key-num" data-val="2"><div class="key-top">2</div></button>
+          <button class="key-3d key-num" data-val="3"><div class="key-top">3</div></button>
+          <button class="key-3d key-op" data-action="add"><div class="key-top">+</div></button>
+
+          <button class="key-3d key-num" data-action="negate"><div class="key-top">±</div></button>
+          <button class="key-3d key-num" data-val="0"><div class="key-top">0</div></button>
+          <button class="key-3d key-num" data-action="decimal"><div class="key-top">.</div></button>
+          <button class="key-3d key-eq" data-action="calculate"><div class="key-top">=</div></button>
+        </div>
+
+      </div>
+
+      <!-- History Drawer -->
+      <div class="history-drawer" id="historyDrawer">
+        <div class="drawer-head">
+          <span>CALCULATION ARCHIVE</span>
+          <button class="btn-utility" id="closeHistoryBtn">✕</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <div style="text-align:center; color:#555b6d; font-size:12px; margin-top:20px;">No computations logged.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="shortcut-guide">
+    <span><kbd>ESC</kbd> Clear</span>
+    <span><kbd>⌫</kbd> Del</span>
+    <span><kbd>ENTER</kbd> Eval</span>
+    <span><kbd>S</kbd> Scientific</span>
+  </div>
+
+  <div class="toast" id="toast">Value Copied to Clipboard</div>
+  <script src="script.js" defer></script>
+</body>
+</html>
