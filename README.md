@@ -4,4 +4,4 @@ A simple and responsive calculator for performing basic arithmetic operations wi
 
 Tech: HTML5 · CSS3 · JavaScript
 
-## Live Demo - https://calculator-notowmflp-degenlogy.vercel.app/
+### Live Demo - https://calculator-notowmflp-degenlogy.vercel.app/
